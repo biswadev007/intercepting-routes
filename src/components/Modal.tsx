@@ -3,8 +3,9 @@
 import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { useRouter } from 'next/navigation'
+import { PropsWithChildren } from "react";
 
-export default function Modal({ children }: { children: React.ReactNode }) {
+export default function Modal(props: PropsWithChildren<{}>) {
   const router = useRouter()
   const handleClose = () => router.back()
 
@@ -35,7 +36,7 @@ export default function Modal({ children }: { children: React.ReactNode }) {
               leaveTo='opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
             >
               <Dialog.Panel className='relative transform overflow-hidden rounded-2xl bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg'>
-                {children}
+                {props?.children}
               </Dialog.Panel>
             </Transition.Child>
           </div>
