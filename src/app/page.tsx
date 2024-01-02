@@ -1,32 +1,37 @@
-'use client'
-import { useEffect, useState, useCallback } from 'react';
+'use client';
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 import axios from 'axios';
-import { useRouter } from 'next/navigation';
-
-import Card from '@/components/Card';
 
 const Home = () => {
-  const router = useRouter();
   const [images, setImage] = useState([]);
-  
-  useEffect(()=> {
-    (async()=> {
-      const { data }= await axios.get('https://picsum.photos/v2/list?page=2&limit=20');
-      setImage(data)
-    })();
-  },[]);
 
-  const handleClick = useCallback((id: string)=> {
-    router.push(`/photos/${id}`);
+  useEffect(() => {
+    (async () => {
+      const { data } = await axios.get(
+        'https://picsum.photos/v2/list?page=3&limit=20'
+      );
+      setImage(data);
+    })();
   }, []);
-  
+
   return (
-    <section className='flex flex-wrap flex-1 space-x-4 justify-center space-y-4'>
-      {
-        images.map((el: any) => <Card key={el?.id} download_url={el?.download_url} id={el?.id} handleClick={handleClick} />)
-      }
+    <section className='flex flex-wrap justify-center gap-4 items-center'>
+      {images.map((el: any) => (
+        <Link key={el?.id} href={`/photos/${el?.id}`}>
+          <Image
+            src={el?.download_url}
+            alt='image-url'
+            height={250}
+            width={250}
+            className='aspect-square w-full rounded-xl object-cover'
+            priority
+          />
+        </Link>
+      ))}
     </section>
-  )
-}
+  );
+};
 
 export default Home;

@@ -10,7 +10,7 @@ export default function Modal({ children }: { children: React.ReactNode }) {
 
   return (
     <Transition.Root show={true} as={Fragment}>
-      <Dialog as='div' className='relative z-10' onClose={handleClose}>
+      <Dialog as='div' className='relative z-50' onClose={handleClose}>
         <Transition.Child
           as={Fragment}
           enter='ease-out duration-300'
