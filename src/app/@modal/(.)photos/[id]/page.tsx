@@ -5,6 +5,7 @@ import PhotoCard from '@/components/PhotoCard';
 
 const PhotoModal = async({ params: { id } }: { params: { id: string } }) => {
   const { data } = await axios.get(`https://picsum.photos/id/${id}/info`);
+  
   return (
     <Modal>
       <PhotoCard author={data?.author} download_url={data?.download_url} />
